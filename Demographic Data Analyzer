@@ -1,0 +1,27 @@
+import pandas as pd
+df = pd.read_csv('adult.data.csv')
+df.head()
+
+df.groupby('race')['race'].count()
+
+round(df.groupby('sex')['age'].mean()[1], 1)
+   ##39,4
+
+round(df['education'].value_counts(normalize=True)['Bachelors'] * 100, 1)
+  ##16,4
+
+round(df['education'].value_counts(normalize=True)[['Bachelors', 'Masters', 'Doctorate']].sum() * 100, 1)  ##23,00
+
+round(df[~df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]['salary'].value_counts(normalize=True)['>50K'] * 100, 1) ##17,4
+
+df['hours-per-week'].min() ##1
+
+df[df['hours-per-week'] == 1].shape[0] ##20
+
+df.groupby('native-country')['salary'].value_counts(normalize=True).loc[:, ('>50K')].idxmax() ##'Iran'
+
+df[(df['native-country'] == 'India') & (df['salary'] == '>50K')]['occupation'].value_counts().idxmax()  ##'Prof-specialty'
+
+
+
+
